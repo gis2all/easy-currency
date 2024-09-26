@@ -102,7 +102,7 @@ const CurrencyConverter = () => {
                 />
                 <span className="text-xl font-medium text-gray-900">{baseCurrencyInfo.name}</span>
                 <span className="text-lg text-gray-600">
-                  ({baseCurrencyInfo.symbol} {baseCurrencyInfo.code})
+                  ({baseCurrencyInfo.symbol}{baseCurrencyInfo.code})
                 </span>
               </div>
               <p className="text-sm text-gray-600 font-medium">基准货币</p>
