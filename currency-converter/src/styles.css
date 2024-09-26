@@ -105,3 +105,39 @@ body {
 .error-text {
   @apply text-gray-700;
 }
+
+/* 添加以下样式来移除输入框的上下箭头 */
+.currency-input::-webkit-outer-spin-button,
+.currency-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 针对 Firefox */
+.currency-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* 现有的样式保持不变 */
+
+/* 禁止除输入框外的其他控件使用光标占位符 */
+*:not(input) {
+  cursor: default;
+  user-select: none;
+}
+
+/* 允许链接和按钮使用指针光标 */
+a, button, [role="button"] {
+  cursor: pointer;
+}
+
+/* 保持输入框的默认光标样式 */
+input {
+  cursor: text;
+}
+
+/* 对于可以选择文本的元素，允许文本选择 */
+.selectable-text {
+  user-select: text;
+  cursor: text;
+}
