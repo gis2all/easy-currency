@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { formatCurrency } from './currencyUtils';
+import '../styles.css';
 
 const CurrencyRateItem = ({ currency, rate, baseAmount, baseCurrency, onAmountChange }) => {
   const [localAmount, setLocalAmount] = useState('');
@@ -9,8 +10,8 @@ const CurrencyRateItem = ({ currency, rate, baseAmount, baseCurrency, onAmountCh
   useEffect(() => {
     if (baseAmount && rate) {
       const convertedAmount = baseAmount * rate;
-      setLocalAmount(convertedAmount === Math.floor(convertedAmount) 
-        ? convertedAmount.toString() 
+      setLocalAmount(convertedAmount === Math.floor(convertedAmount)
+        ? convertedAmount.toString()
         : convertedAmount.toFixed(2));
     }
   }, [baseAmount, rate]);
@@ -33,40 +34,40 @@ const CurrencyRateItem = ({ currency, rate, baseAmount, baseCurrency, onAmountCh
   const displayAmount = localAmount || (isFocused ? '' : '1');
 
   return (
-    <motion.div 
-      className="flex items-center justify-between p-6 hover:bg-gray-50 transition-colors duration-300 ease-in-out"
+    <motion.div
+      className="currency-item"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <div className="flex items-center space-x-4">
-        <img 
-          src={currency.flag} 
-          alt={`${currency.code} flag`} 
-          className="w-8 h-6 object-cover"
+      <div className="currency-info">
+        <img
+          src={currency.flag}
+          alt={`${currency.code} flag`}
+          className="currency-flag"
         />
-        <div className="flex flex-col items-start">
-          <motion.span 
-            className="font-semibold text-gray-900 text-lg"
+        <div className="currency-details">
+          <motion.span
+            className="currency-code-text"
             whileHover={{ scale: 1.1 }}
           >
             {currency.code}
           </motion.span>
-          <p className="text-sm text-gray-500">{currency.name}</p>
+          <p className="currency-name-text">{currency.name}</p>
         </div>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="currency-input-container">
         <motion.input
           type="number"
           value={displayAmount}
           onChange={handleAmountChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className="w-32 px-4 py-2 text-right font-medium text-gray-900 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-300 ease-in-out text-lg"
+          className="currency-input"
           placeholder={isFocused ? '' : formatCurrency(rate, 8)}
           step="any"
           whileFocus={{ scale: 1.05 }}
         />
-        <span className="text-sm font-medium text-gray-600">{currency.symbol}</span>
+        <span className="currency-symbol">{currency.symbol}</span>
       </div>
     </motion.div>
   );

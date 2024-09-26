@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CurrencyRateItem from './CurrencyRateItem';
 import { getCombinedCurrencyData, fetchExchangeRates } from './currencyUtils';
+import '../styles.css';
+import { fadeIn, slideIn, fadeInUp } from '../animations'; // 添加 fadeInUp
 
 const CurrencyConverter = () => {
   const [currencies, setCurrencies] = useState([]);
@@ -51,18 +53,18 @@ const CurrencyConverter = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-        <div className="bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">错误</h2>
-          <p className="text-gray-700">{error}</p>
+      <div className="error-container">
+        <div className="error-message">
+          <h2 className="error-title">错误</h2>
+          <p className="error-text">{error}</p>
         </div>
       </div>
     );
@@ -71,57 +73,49 @@ const CurrencyConverter = () => {
   const baseCurrencyInfo = currencies.find(c => c.code === baseCurrency);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="app-container">
       <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-2xl mx-auto bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden"
+        {...slideIn}
+        className="converter-container"
       >
-        <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-8">
+        <div className="header-container">
           <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600 mb-6 text-center"
+            {...fadeIn}
+            transition={{ delay: 0.3 }}
+            className="title"
           >
             汇率转换器
           </motion.h1>
           {baseCurrencyInfo && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="flex flex-col items-center mb-6"
+              {...fadeIn}
+              transition={{ delay: 0.5 }}
+              className="base-currency-container"
             >
-              <div className="flex items-center space-x-4 mb-2 bg-white bg-opacity-50 rounded-full px-6 py-3 shadow-md">
+              <div className="base-currency-info">
                 <img
                   src={baseCurrencyInfo.flag}
                   alt={`${baseCurrencyInfo.code} flag`}
-                  className="w-10 h-7 object-cover rounded shadow-sm"
+                  className="currency-flag"
                 />
-                <span className="text-xl font-medium text-gray-900">{baseCurrencyInfo.name}</span>
-                <span className="text-lg text-gray-600">
+                <span className="currency-name">{baseCurrencyInfo.name}</span>
+                <span className="currency-code">
                   ({baseCurrencyInfo.symbol}{baseCurrencyInfo.code})
                 </span>
               </div>
-              <p className="text-sm text-gray-600 font-medium">基准货币</p>
+              <p className="base-currency-label">基准货币</p>
             </motion.div>
           )}
         </div>
         <AnimatePresence>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            className="divide-y divide-gray-200"
+            {...fadeIn}
+            className="currency-list"
           >
             {currencies.map((currency, index) => (
               <motion.div
                 key={currency.code}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index, duration: 0.3 }}
+                {...fadeInUp} // 确保使用正确的属性
               >
                 <CurrencyRateItem
                   currency={currency}
