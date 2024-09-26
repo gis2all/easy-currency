@@ -9,7 +9,7 @@ const CurrencyConverter = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [baseAmount, setBaseAmount] = useState(1);
-  const [baseCurrency, setBaseCurrency] = useState('USD'); // 将默认基准货币改为 USD
+  const [baseCurrency, setBaseCurrency] = useState('USD');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +20,6 @@ const CurrencyConverter = () => {
         }
         setCurrencies(currencyData);
         
-        // 获取基于 USD 的汇率
         const usdRates = await fetchExchangeRates('USD');
         setRates(usdRates);
         
@@ -69,31 +68,46 @@ const CurrencyConverter = () => {
     );
   }
 
+  const baseCurrencyInfo = currencies.find(c => c.code === baseCurrency);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <motion.div 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-lg mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden"
+        className="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden"
       >
         <div className="bg-gray-50 p-8">
           <motion.h1 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 mb-2"
+            className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 mb-6 text-center"
           >
             汇率转换器
           </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="text-sm text-gray-600"
-          >
-            基准货币：<span className="font-semibold">{baseCurrency}</span>
-          </motion.p>
+          {baseCurrencyInfo && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="flex flex-col items-center mb-6"
+            >
+              <div className="flex items-center space-x-4 mb-2">
+                <img 
+                  src={baseCurrencyInfo.flag} 
+                  alt={`${baseCurrencyInfo.code} flag`} 
+                  className="w-10 h-7 object-cover rounded shadow-md"
+                />
+                <span className="text-xl font-medium text-gray-900">{baseCurrencyInfo.name}</span>
+                <span className="text-lg text-gray-600">
+                  ( {baseCurrencyInfo.symbol}{baseCurrencyInfo.code} )
+                </span>
+              </div>
+              <p className="text-sm text-gray-500">基准货币</p>
+            </motion.div>
+          )}
         </div>
         <AnimatePresence>
           <motion.div 

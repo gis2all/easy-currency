@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import React from 'react';
 import CurrencyConverter from './components/CurrencyConverter';
 
@@ -10,6 +8,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
