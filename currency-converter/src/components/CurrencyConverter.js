@@ -9,7 +9,7 @@ const CurrencyConverter = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [baseAmount, setBaseAmount] = useState(1);
-  const [baseCurrency, setBaseCurrency] = useState('CNY');
+  const [baseCurrency, setBaseCurrency] = useState('USD'); // 将默认基准货币改为 USD
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +19,11 @@ const CurrencyConverter = () => {
           throw new Error('无法获取货币数据');
         }
         setCurrencies(currencyData);
-        setRates(currencyData.reduce((acc, curr) => ({ ...acc, [curr.code]: curr.rate }), {}));
+        
+        // 获取基于 USD 的汇率
+        const usdRates = await fetchExchangeRates('USD');
+        setRates(usdRates);
+        
         setLoading(false);
       } catch (error) {
         console.error('获取数据失败:', error);
