@@ -1,61 +1,73 @@
-export const currencies = [
-  { code: 'CNY', name: '人民币', symbol: '¥', flag: '🇨🇳' },
-  { code: 'USD', name: '美元', symbol: '$', flag: '🇺🇸' },
-  { code: 'BTC', name: '比特币', symbol: '₿', flag: '₿' },
-  { code: 'ETH', name: '以太币', symbol: 'Ξ', flag: 'Ξ' },
-  { code: 'SGD', name: '新加坡元', symbol: 'S$', flag: '🇸🇬' },
-  { code: 'JPY', name: '日元', symbol: '¥', flag: '🇯🇵' },
-  { code: 'GBP', name: '英镑', symbol: '£', flag: '🇬🇧' },
-];
+const API_KEY = '2dfbab0e99f9426d2d269e07'; // 您的 API 密钥
 
-export const rates = {
-  CNY: 1,
-  USD: 0.1425,
-  BTC: 0.00000223,
-  ETH: 0.00005441,
-  SGD: 0.1833,
-  JPY: 20.6482,
-  GBP: 0.1066,
-};
-
-// export const getExchangeRates = async () => {
-//   // 在实际应用中，这里应该调用真实的API来获取最新汇率
-//   // 现在我们使用模拟数据
-//   return new Promise((resolve) => {
-//     setTimeout(() => resolve(rates), 500); // 模拟API调用延迟
-//   });
-// };
-
-export const getExchangeRates = async () => {
-  const apiUrl = 'https://v6.exchangerate-api.com/v6/2dfbab0e99f9426d2d269e07/latest/USD';
-
+export const fetchCurrencies = async () => {
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error('网络响应不是OK');
-    }
-
+    const response = await fetch('https://restcountries.com/v3.1/all');
     const data = await response.json();
+    
+    const currenciesData = data.reduce((acc, country) => {
+      if (country.currencies) {
+        Object.entries(country.currencies).forEach(([code, details]) => {
+          if (!acc[code]) {
+            acc[code] = {
+              code,
+              name: details.name,
+              symbol: details.symbol || code,
+              flag: country.flags.svg // 使用 SVG 格式的国旗
+            };
+          }
+        });
+      }
+      return acc;
+    }, {});
 
-    if (data.result === "success") {
-      return data.conversion_rates; // 返回真实的汇率数据
-    } else {
-      throw new Error('获取数据失败: ' + data);
-    }
+    return Object.values(currenciesData);
   } catch (error) {
-    console.error('请求失败:', error);
-    throw error; // 重新抛出错误以便调用者处理
+    console.error('获取货币数据失败:', error);
+    return []; // 确保在出错时返回空数组
   }
 };
 
-export const formatCurrency = (value) => {
-  if (value === undefined) {
-    console.error('传入的值是undefined');
-    return 'N/A'; // 或者返回其他默认值
+export const fetchExchangeRates = async (baseCurrency = 'USD') => {
+  try {
+    const response = await fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${baseCurrency}`);
+    const data = await response.json();
+    return data.conversion_rates;
+  } catch (error) {
+    console.error('获取汇率数据失败:', error);
+    return {}; // 确保在出错时返回空对象
   }
-  return value.toFixed(2); // 假设你想要保留两位小数
 };
 
-export const convertCurrency = (amount, fromCurrency, toCurrency) => {
-  return amount * (rates[toCurrency] / rates[fromCurrency]);
+export const getCombinedCurrencyData = async () => {
+  try {
+    const currencies = await fetchCurrencies();
+    const exchangeRates = await fetchExchangeRates();
+
+    if (!currencies || currencies.length === 0) {
+      throw new Error('No currency data available');
+    }
+
+    return currencies
+      .map(currency => ({
+        ...currency,
+        rate: exchangeRates[currency.code] || null
+      }))
+      .filter(currency => currency.rate !== null)
+      .sort((a, b) => {
+        if (a.code === 'CNY') return -1;
+        if (b.code === 'CNY') return 1;
+        if (a.code === 'USD') return -1;
+        if (b.code === 'USD') return 1;
+        return 0;
+      })
+      .slice(0, 6); // 只保留前6项
+  } catch (error) {
+    console.error('组合货币数据失败:', error);
+    return []; // 确保在出错时返回空数组
+  }
+};
+
+export const formatCurrency = (value, decimals = 2) => {
+  return Number(value).toFixed(decimals);
 };

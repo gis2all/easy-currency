@@ -39,14 +39,12 @@ const CurrencyRateItem = ({ currency, rate, baseAmount, baseCurrency, onAmountCh
       whileTap={{ scale: 0.98 }}
     >
       <div className="flex items-center space-x-4">
-        <motion.span 
-          className="text-4xl"
-          whileHover={{ rotate: 360 }}
-          transition={{ duration: 0.5 }}
-        >
-          {currency.flag}
-        </motion.span>
-        <div>
+        <img 
+          src={currency.flag} 
+          alt={`${currency.code} flag`} 
+          className="w-8 h-6 object-cover"
+        />
+        <div className="flex flex-col items-start">
           <motion.span 
             className="font-semibold text-gray-900 text-lg"
             whileHover={{ scale: 1.1 }}

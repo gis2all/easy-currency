@@ -1,22 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CurrencyRateItem from './CurrencyRateItem';
-import { currencies, getExchangeRates } from './currencyUtils';
+import { getCombinedCurrencyData, fetchExchangeRates } from './currencyUtils';
 
 const CurrencyConverter = () => {
+  const [currencies, setCurrencies] = useState([]);
   const [rates, setRates] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [baseAmount, setBaseAmount] = useState(1);
   const [baseCurrency, setBaseCurrency] = useState('CNY');
 
   useEffect(() => {
-    const fetchRates = async () => {
-      const fetchedRates = await getExchangeRates();
-      setRates(fetchedRates);
-      setLoading(false);
+    const fetchData = async () => {
+      try {
+        const currencyData = await getCombinedCurrencyData();
+        if (currencyData.length === 0) {
+          throw new Error('无法获取货币数据');
+        }
+        setCurrencies(currencyData);
+        setRates(currencyData.reduce((acc, curr) => ({ ...acc, [curr.code]: curr.rate }), {}));
+        setLoading(false);
+      } catch (error) {
+        console.error('获取数据失败:', error);
+        setError(error.message);
+        setLoading(false);
+      }
     };
-    fetchRates();
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    const updateRates = async () => {
+      if (baseCurrency) {
+        const newRates = await fetchExchangeRates(baseCurrency);
+        setRates(newRates);
+      }
+    };
+    updateRates();
+  }, [baseCurrency]);
 
   const handleAmountChange = (currency, amount) => {
     const newBaseAmount = amount === '' ? 1 : parseFloat(amount) / rates[currency];
@@ -28,6 +50,17 @@ const CurrencyConverter = () => {
     return (
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
         <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">错误</h2>
+          <p className="text-gray-700">{error}</p>
+        </div>
       </div>
     );
   }
@@ -57,20 +90,12 @@ const CurrencyConverter = () => {
           >
             基准货币：<span className="font-semibold">{baseCurrency}</span>
           </motion.p>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            className="text-xs text-gray-500 mt-1"
-          >
-            实时汇率更新
-          </motion.p>
         </div>
         <AnimatePresence>
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.9, duration: 0.5 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
             className="divide-y divide-gray-200"
           >
             {currencies.map((currency, index) => (
@@ -78,7 +103,7 @@ const CurrencyConverter = () => {
                 key={currency.code}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 * index, duration: 0.3 }}
+                transition={{ delay: 0.1 * index, duration: 0.3 }}
               >
                 <CurrencyRateItem
                   currency={currency}
