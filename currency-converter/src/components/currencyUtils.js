@@ -43,7 +43,7 @@ export const fetchCurrencies = async () => {
   try {
     const response = await fetch('https://restcountries.com/v3.1/all');
     const data = await response.json();
-    
+
     const currenciesData = {};
 
     // 首先处理优先国家

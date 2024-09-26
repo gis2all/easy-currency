@@ -19,10 +19,10 @@ const CurrencyConverter = () => {
           throw new Error('无法获取货币数据');
         }
         setCurrencies(currencyData);
-        
+
         const usdRates = await fetchExchangeRates('USD');
         setRates(usdRates);
-        
+
         setLoading(false);
       } catch (error) {
         console.error('获取数据失败:', error);
@@ -72,45 +72,45 @@ const CurrencyConverter = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden"
+        className="max-w-2xl mx-auto bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden"
       >
-        <div className="bg-gray-50 p-8">
-          <motion.h1 
+        <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-8">
+          <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 mb-6 text-center"
+            className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600 mb-6 text-center"
           >
             汇率转换器
           </motion.h1>
           {baseCurrencyInfo && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex flex-col items-center mb-6"
             >
-              <div className="flex items-center space-x-4 mb-2">
-                <img 
-                  src={baseCurrencyInfo.flag} 
-                  alt={`${baseCurrencyInfo.code} flag`} 
-                  className="w-10 h-7 object-cover rounded shadow-md"
+              <div className="flex items-center space-x-4 mb-2 bg-white bg-opacity-50 rounded-full px-6 py-3 shadow-md">
+                <img
+                  src={baseCurrencyInfo.flag}
+                  alt={`${baseCurrencyInfo.code} flag`}
+                  className="w-10 h-7 object-cover rounded shadow-sm"
                 />
                 <span className="text-xl font-medium text-gray-900">{baseCurrencyInfo.name}</span>
                 <span className="text-lg text-gray-600">
-                  ( {baseCurrencyInfo.symbol}{baseCurrencyInfo.code} )
+                  ({baseCurrencyInfo.symbol} {baseCurrencyInfo.code})
                 </span>
               </div>
-              <p className="text-sm text-gray-500">基准货币</p>
+              <p className="text-sm text-gray-600 font-medium">基准货币</p>
             </motion.div>
           )}
         </div>
         <AnimatePresence>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.5 }}
