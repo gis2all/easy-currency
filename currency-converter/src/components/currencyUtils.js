@@ -1,30 +1,64 @@
 const API_KEY = '2dfbab0e99f9426d2d269e07'; // 您的 API 密钥
 
+// 定义主要货币及其优先国家
+const primaryCurrencyCountries = {
+  USD: 'United States',
+  EUR: 'Germany',
+  GBP: 'United Kingdom',
+  JPY: 'Japan',
+  AUD: 'Australia',
+  CAD: 'Canada',
+  CHF: 'Switzerland',
+  CNY: 'China',
+  HKD: 'Hong Kong',
+  NZD: 'New Zealand'
+};
+
 export const fetchCurrencies = async () => {
   try {
     const response = await fetch('https://restcountries.com/v3.1/all');
     const data = await response.json();
     
-    const currenciesData = data.reduce((acc, country) => {
+    const currenciesData = {};
+
+    // 首先处理主要货币
+    data.forEach(country => {
       if (country.currencies) {
         Object.entries(country.currencies).forEach(([code, details]) => {
-          if (!acc[code]) {
-            acc[code] = {
+          if (primaryCurrencyCountries[code] && primaryCurrencyCountries[code] === country.name.common) {
+            currenciesData[code] = {
               code,
               name: details.name,
               symbol: details.symbol || code,
-              flag: country.flags.svg // 使用 SVG 格式的国旗
+              flag: country.flags.svg,
+              country: country.name.common
             };
           }
         });
       }
-      return acc;
-    }, {});
+    });
+
+    // 然后处理其他货币
+    data.forEach(country => {
+      if (country.currencies) {
+        Object.entries(country.currencies).forEach(([code, details]) => {
+          if (!currenciesData[code]) {
+            currenciesData[code] = {
+              code,
+              name: details.name,
+              symbol: details.symbol || code,
+              flag: country.flags.svg,
+              country: country.name.common
+            };
+          }
+        });
+      }
+    });
 
     return Object.values(currenciesData);
   } catch (error) {
     console.error('获取货币数据失败:', error);
-    return []; // 确保在出错时返回空数组
+    return [];
   }
 };
 
