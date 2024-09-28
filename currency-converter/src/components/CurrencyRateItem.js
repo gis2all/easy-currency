@@ -59,6 +59,7 @@ const CurrencyRateItem = ({
             onChange={handleCurrencyChange}
             onMenuOpen={onDropdownOpen}
             onMenuClose={onDropdownClose}
+            minimal={true} // 只显示下拉箭头
           />
           <img
             src={currency.flag}

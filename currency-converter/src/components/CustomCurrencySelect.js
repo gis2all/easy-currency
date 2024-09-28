@@ -3,21 +3,49 @@ import Select from 'react-select';
 import PropTypes from 'prop-types';
 import '../styles.css';
 
-const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClose }) => {
+const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClose, minimal }) => {
   const customStyles = {
     control: (provided) => ({
       ...provided,
+      width: minimal ? '30px' : '200px',  // 控制宽度
       minHeight: '40px',
       borderRadius: '8px',
-      borderColor: '#ccc',
+      borderColor: 'transparent',  // 使边框透明
+      backgroundColor: 'red',  // 设置背景颜色为红色
       boxShadow: 'none',
+      cursor: 'pointer',  // 确保鼠标为指针形状
       '&:hover': {
-        borderColor: '#aaa',
+        borderColor: 'transparent',
       },
+      display: 'flex',
+      justifyContent: minimal ? 'center' : 'space-between',  // 在minimal模式下居中显示箭头
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      display: 'none',
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      display: 'none',
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      padding: minimal ? '0' : '0 8px',
+      color: minimal ? '#666' : '#444',  // 调整箭头颜色
+    }),
+    indicatorsContainer: (provided) => ({
+      ...provided,
+      padding: minimal ? '0' : provided.padding,
+      background: 'transparent',  // 确保背景透明
+      border: 'none',  // 确保没有边框
     }),
     menu: (provided) => ({
       ...provided,
-      zIndex: 9999, // 确保下拉菜单在最上层
+      width: '200px'  // 设置弹出选择器的固定宽度
+    }),
+    separator: (provided) => ({
+      ...provided,
+      display: 'none'  // 去除分隔符
     }),
     menuPortal: (base) => ({
       ...base,
@@ -31,18 +59,15 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
       display: 'flex',
       alignItems: 'center',
     }),
-    singleValue: (provided) => ({
+    menuList: (provided) => ({
       ...provided,
-      color: '#333',
-      display: 'flex',
-      alignItems: 'center',
+      "div[role='separator']": {
+        display: 'none'  // 隐藏分隔符
+      }
     }),
-    dropdownIndicator: (provided) => ({
+    indicatorSeparator: (provided) => ({
       ...provided,
-      color: '#333',
-      '&:hover': {
-        color: '#000',
-      },
+      display: 'none'  // 隐藏指示器分隔线
     }),
   };
 
@@ -66,8 +91,8 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
       onChange={(selected) => onChange(selected.value)}
       className="custom-select"
       classNamePrefix="react-select"
-      isSearchable
-      placeholder="选择货币..."
+      isSearchable={false}  // 禁用搜索功能，避免出现光标
+      placeholder={minimal ? '' : '选择货币...'}
       menuPortalTarget={document.body} // 将菜单渲染到 body
       menuPosition="fixed" // 使用 'fixed' 确保定位正确
       onMenuOpen={onMenuOpen}
