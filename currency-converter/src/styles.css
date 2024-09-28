@@ -141,3 +141,8 @@ input {
   user-select: text;
   cursor: text;
 }
+
+/* 新增样式 */
+.currency-select {
+  @apply w-40 px-3 py-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-300 ease-in-out;
+}

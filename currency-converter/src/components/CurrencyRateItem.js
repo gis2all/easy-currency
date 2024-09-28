@@ -3,12 +3,15 @@ import { motion } from 'framer-motion';
 import { formatAmount } from './currencyUtils';
 import '../styles.css';
 
-const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange }) => {
+const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange, onCurrencyChange, availableCurrencies }) => {
   const [isFocused, setIsFocused] = useState(false);
+
+  if (!currency) {
+    return <div className="currency-item-placeholder">货币数据不可用</div>;
+  }
 
   const handleAmountChange = (e) => {
     const newAmount = e.target.value;
-    // 允许输入数字、一个小数点，并限制小数位数为6位
     if (/^[0-9]*\.?[0-9]{0,6}$/.test(newAmount) || newAmount === '') {
       onAmountChange(currency.code, newAmount);
     }
@@ -24,6 +27,10 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
     }
   };
 
+  const handleCurrencyChange = (e) => {
+    onCurrencyChange(currency.code, e.target.value);
+  };
+
   const displayAmount = isFocused ? amount : (amount || '0');
 
   return (
@@ -33,19 +40,25 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
       whileTap={{ scale: 0.98 }}
     >
       <div className="currency-info">
+        <select
+          value={currency.code}
+          onChange={handleCurrencyChange}
+          className="currency-select"
+        >
+          {availableCurrencies.map((curr) => (
+            <option key={curr.code} value={curr.code}>
+              {curr.code} - {curr.name}
+            </option>
+          ))}
+        </select>
         <img
           src={currency.flag}
           alt={`${currency.code} flag`}
           className="currency-flag"
         />
         <div className="currency-details">
-          <motion.span
-            className="currency-code-text"
-            whileHover={{ scale: 1.1 }}
-          >
-            {currency.code}
-          </motion.span>
-          <p className="currency-name-text">{currency.name}</p>
+          <span className="currency-code-text">{currency.code}</span>
+          <span className="currency-name-text">{currency.name}</span>
         </div>
       </div>
       <div className="currency-input-container">

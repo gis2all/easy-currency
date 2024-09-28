@@ -128,8 +128,8 @@ export const getCombinedCurrencyData = async () => {
         if (a.code === 'CNY') return -1;
         if (b.code === 'CNY') return 1;
         return 0;
-      })
-      .slice(0, 6); // 只保留前6项
+      });
+      // 移除这里的 .slice(0, 6)，让函数返回所有可用的货币
   } catch (error) {
     console.error('组合货币数据失败:', error);
     return []; // 确保在出错时返回空数组
