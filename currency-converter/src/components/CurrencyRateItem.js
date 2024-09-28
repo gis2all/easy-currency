@@ -40,25 +40,28 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
       whileTap={{ scale: 0.98 }}
     >
       <div className="currency-info">
-        <select
-          value={currency.code}
-          onChange={handleCurrencyChange}
-          className="currency-select"
-        >
-          {availableCurrencies.map((curr) => (
-            <option key={curr.code} value={curr.code}>
-              {curr.code} - {curr.name}
-            </option>
-          ))}
-        </select>
-        <img
-          src={currency.flag}
-          alt={`${currency.code} flag`}
-          className="currency-flag"
-        />
-        <div className="currency-details">
-          <span className="currency-code-text">{currency.code}</span>
-          <span className="currency-name-text">{currency.name}</span>
+        <div className="flex items-center space-x-2">
+          <select
+            value={currency.code}
+            onChange={handleCurrencyChange}
+            className="currency-select"
+            aria-label="选择货币"
+          >
+            {availableCurrencies.map((curr) => (
+              <option key={curr.code} value={curr.code}>
+                {curr.code} - {curr.name}
+              </option>
+            ))}
+          </select>
+          <img
+            src={currency.flag}
+            alt={`${currency.code} flag`}
+            className="currency-flag"
+          />
+          <div className="currency-details">
+            <span className="currency-code-text">{currency.code}</span>
+            <span className="currency-name-text">{currency.name}</span>
+          </div>
         </div>
       </div>
       <div className="currency-input-container">
