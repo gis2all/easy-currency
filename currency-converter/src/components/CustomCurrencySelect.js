@@ -7,18 +7,20 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      width: minimal ? '30px' : '200px',  // 控制宽度
-      minHeight: '40px',
+      width: minimal ? '20px' : '200px',  // 在minimal模式下减小宽度
+      padding: 0,
+      minHeight: minimal ? '20px' : '40px',  // 在minimal模式下减小高度
       borderRadius: '8px',
       borderColor: 'transparent',  // 使边框透明
-      backgroundColor: 'red',  // 设置背景颜色为红色
+      backgroundColor: 'transparent',  // 改为透明背景
       boxShadow: 'none',
       cursor: 'pointer',  // 确保鼠标为指针形状
       '&:hover': {
         borderColor: 'transparent',
       },
       display: 'flex',
-      justifyContent: minimal ? 'center' : 'space-between',  // 在minimal模式下居中显示箭头
+      justifyContent: 'center',  // 始终居中对齐
+      alignItems: 'center',  // 垂直居中
     }),
     singleValue: (provided) => ({
       ...provided,
@@ -30,25 +32,31 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: minimal ? '0' : '0 8px',
+      padding: 0,
+      margin: 0,  // 移除所有margin
       color: minimal ? '#666' : '#444',  // 调整箭头颜色
+      width: minimal ? '20px' : 'auto',  // 在minimal模式下固定宽度
+      height: minimal ? '20px' : 'auto',  // 在minimal模式下固定高度
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
-      padding: minimal ? '0' : provided.padding,
+      padding: 0,
+      margin: 0,  // 添加这一行
       background: 'transparent',  // 确保背景透明
       border: 'none',  // 确保没有边框
+      width: minimal ? '20px' : 'auto',  // 在minimal模式下固定宽度
+      height: minimal ? '20px' : 'auto',  // 在minimal模式下固定高度
     }),
     menu: (provided) => ({
       ...provided,
-      width: '200px'  // 设置弹出选择器的固定宽度
+      width: '300px'  // 设置弹出选择器的固定宽度
     }),
     separator: (provided) => ({
       ...provided,
       display: 'none'  // 去除分隔符
     }),
     menuPortal: (base) => ({
-      ...base,
+      ...base,      
       zIndex: 9999, // 确保菜单门户具有足够高的层级
     }),
     option: (provided, state) => ({

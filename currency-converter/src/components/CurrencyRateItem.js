@@ -52,7 +52,7 @@ const CurrencyRateItem = ({
       style={{ position: 'relative', overflow: 'visible' }} // 确保父容器允许溢出
     >
       <div className="currency-info">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <CustomCurrencySelect
             options={availableCurrencies}
             value={currency.code}
