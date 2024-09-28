@@ -86,26 +86,7 @@ const CurrencyConverter = () => {
           >
             汇率转换器
           </motion.h1>
-          {baseCurrencyInfo && (
-            <motion.div
-              {...fadeIn}
-              transition={{ delay: 0.5 }}
-              className="base-currency-container"
-            >
-              <div className="base-currency-info">
-                <img
-                  src={baseCurrencyInfo.flag}
-                  alt={`${baseCurrencyInfo.code} flag`}
-                  className="currency-flag"
-                />
-                <span className="currency-name">{baseCurrencyInfo.name}</span>
-                <span className="currency-code">
-                  ({baseCurrencyInfo.symbol}{baseCurrencyInfo.code})
-                </span>
-              </div>
-              <p className="base-currency-label">基准货币</p>
-            </motion.div>
-          )}
+          {/* 删除基准货币组件 */}
         </div>
         <AnimatePresence>
           <motion.div
