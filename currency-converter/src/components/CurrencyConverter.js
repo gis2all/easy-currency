@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CurrencyRateItem from './CurrencyRateItem';
-import { getCombinedCurrencyData, fetchExchangeRates } from './currencyUtils';
+import { getCombinedCurrencyData, fetchExchangeRates, formatAmount } from './currencyUtils';
 import '../styles.css';
 import { fadeIn, slideIn, fadeInUp } from '../animations'; // 添加 fadeInUp
 
@@ -10,7 +10,7 @@ const CurrencyConverter = () => {
   const [rates, setRates] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [baseAmount, setBaseAmount] = useState(1);
+  const [amounts, setAmounts] = useState({});
   const baseCurrency = 'USD'; // 固定基准货币为 USD
 
   useEffect(() => {
@@ -25,6 +25,13 @@ const CurrencyConverter = () => {
         const usdRates = await fetchExchangeRates('USD');
         setRates(usdRates);
 
+        // 初始化所有货币金额为1
+        const initialAmounts = currencyData.reduce((acc, currency) => {
+          acc[currency.code] = currency.code === 'USD' ? '1' : formatAmount(usdRates[currency.code]);
+          return acc;
+        }, {});
+        setAmounts(initialAmounts);
+
         setLoading(false);
       } catch (error) {
         console.error('获取数据失败:', error);
@@ -36,12 +43,25 @@ const CurrencyConverter = () => {
   }, []);
 
   const handleAmountChange = (currency, amount) => {
-    if (amount === '' || amount === null) {
-      setBaseAmount(null);
+    const newAmounts = { ...amounts, [currency]: amount };
+    
+    if (amount === '') {
+      // 如果输入为空，将所有货币金额设置为空字符串
+      Object.keys(newAmounts).forEach(key => {
+        newAmounts[key] = '';
+      });
     } else {
-      const newBaseAmount = parseFloat(amount) / rates[currency];
-      setBaseAmount(newBaseAmount);
+      const usdAmount = currency === 'USD' ? parseFloat(amount) : parseFloat(amount) / rates[currency];
+      
+      currencies.forEach(curr => {
+        if (curr.code !== currency) {
+          const convertedAmount = curr.code === 'USD' ? usdAmount : usdAmount * rates[curr.code];
+          newAmounts[curr.code] = formatAmount(convertedAmount);
+        }
+      });
     }
+    
+    setAmounts(newAmounts);
   };
 
   if (loading) {
@@ -93,7 +113,7 @@ const CurrencyConverter = () => {
                 <CurrencyRateItem
                   currency={currency}
                   rate={rates[currency.code]}
-                  baseAmount={baseAmount}
+                  amount={amounts[currency.code]}
                   baseCurrency={baseCurrency}
                   onAmountChange={handleAmountChange}
                 />

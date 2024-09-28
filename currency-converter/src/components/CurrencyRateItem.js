@@ -1,37 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { formatCurrency } from './currencyUtils';
+import { formatAmount } from './currencyUtils';
 import '../styles.css';
 
-const CurrencyRateItem = ({ currency, rate, baseAmount, baseCurrency, onAmountChange }) => {
-  const [localAmount, setLocalAmount] = useState('');
+const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange }) => {
   const [isFocused, setIsFocused] = useState(false);
-
-  useEffect(() => {
-    if (baseAmount && rate) {
-      const convertedAmount = baseAmount * rate;
-      setLocalAmount(convertedAmount === Math.floor(convertedAmount)
-        ? convertedAmount.toString()
-        : convertedAmount.toFixed(2));
-    }
-  }, [baseAmount, rate]);
 
   const handleAmountChange = (e) => {
     const newAmount = e.target.value;
-    setLocalAmount(newAmount);
-    onAmountChange(currency.code, newAmount);
+    // 允许输入数字、一个小数点，并限制小数位数为6位
+    if (/^[0-9]*\.?[0-9]{0,6}$/.test(newAmount) || newAmount === '') {
+      onAmountChange(currency.code, newAmount);
+    }
   };
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => {
     setIsFocused(false);
-    if (localAmount === '') {
-      setLocalAmount('');
-      onAmountChange(currency.code, '1');
+    if (amount === '') {
+      onAmountChange(currency.code, '0');
+    } else {
+      onAmountChange(currency.code, formatAmount(amount));
     }
   };
 
-  const displayAmount = localAmount || (isFocused ? '' : '1');
+  const displayAmount = isFocused ? amount : (amount || '0');
 
   return (
     <motion.div
@@ -57,14 +50,13 @@ const CurrencyRateItem = ({ currency, rate, baseAmount, baseCurrency, onAmountCh
       </div>
       <div className="currency-input-container">
         <motion.input
-          type="number"
+          type="text"
           value={displayAmount}
           onChange={handleAmountChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           className="currency-input"
-          placeholder={isFocused ? '' : formatCurrency(rate, 8)}
-          step="any"
+          placeholder={rate ? rate.toString() : ''}
           whileFocus={{ scale: 1.05 }}
         />
         <span className="currency-symbol">{currency.symbol}</span>

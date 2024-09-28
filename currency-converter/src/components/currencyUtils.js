@@ -139,3 +139,14 @@ export const getCombinedCurrencyData = async () => {
 export const formatCurrency = (value, decimals = 2) => {
   return Number(value).toFixed(decimals);
 };
+
+export const formatAmount = (value) => {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+  }
+  if (isNaN(value)) {
+    return '0';
+  }
+  // 使用 toFixed(6) 来限制小数位数，然后使用 parseFloat 去除尾随的零
+  return parseFloat(value.toFixed(6)).toString();
+};
