@@ -52,12 +52,18 @@ const CurrencyConverter = () => {
     });
 
     setAmounts(prev => {
-      const oldCurrencyCode = selectedCurrencyCodes[index];
-      const oldAmount = prev[oldCurrencyCode] || '0';
-      const newAmount = (parseFloat(oldAmount) / rates[oldCurrencyCode]) * rates[newCurrencyCode];
       const updatedAmounts = { ...prev };
-      delete updatedAmounts[oldCurrencyCode];
-      updatedAmounts[newCurrencyCode] = formatAmount(newAmount);
+      // 将新选择的货币金额设置为 1
+      updatedAmounts[newCurrencyCode] = '1';
+
+      // 根据新的基准货币（金额为1）重新计算其他货币的金额
+      selectedCurrencyCodes.forEach(code => {
+        if (code !== newCurrencyCode) {
+          const convertedAmount = rates[code] / rates[newCurrencyCode];
+          updatedAmounts[code] = formatAmount(convertedAmount);
+        }
+      });
+
       return updatedAmounts;
     });
   };
