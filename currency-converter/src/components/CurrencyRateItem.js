@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { formatAmount } from './currencyUtils';
+import CustomCurrencySelect from './CustomCurrencySelect';
 import '../styles.css';
 
-const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange, onCurrencyChange, availableCurrencies }) => {
+const CurrencyRateItem = ({
+  currency,
+  rate,
+  amount,
+  baseCurrency,
+  onAmountChange,
+  onCurrencyChange,
+  availableCurrencies,
+  onDropdownOpen,
+  onDropdownClose
+}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   if (!currency) {
@@ -27,8 +38,8 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
     }
   };
 
-  const handleCurrencyChange = (e) => {
-    onCurrencyChange(currency.code, e.target.value);
+  const handleCurrencyChange = (newCode) => {
+    onCurrencyChange(currency.code, newCode);
   };
 
   const displayAmount = isFocused ? amount : (amount || '0');
@@ -38,21 +49,17 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
       className="currency-item"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
+      style={{ position: 'relative', overflow: 'visible' }} // 确保父容器允许溢出
     >
       <div className="currency-info">
         <div className="flex items-center space-x-2">
-          <select
+          <CustomCurrencySelect
+            options={availableCurrencies}
             value={currency.code}
             onChange={handleCurrencyChange}
-            className="currency-select"
-            aria-label="选择货币"
-          >
-            {availableCurrencies.map((curr) => (
-              <option key={curr.code} value={curr.code}>
-                {curr.code} - {curr.name}
-              </option>
-            ))}
-          </select>
+            onMenuOpen={onDropdownOpen}
+            onMenuClose={onDropdownClose}
+          />
           <img
             src={currency.flag}
             alt={`${currency.code} flag`}

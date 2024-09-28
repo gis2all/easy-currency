@@ -13,6 +13,7 @@ const CurrencyConverter = () => {
   const [amounts, setAmounts] = useState({});
   const [selectedCurrencyCodes, setSelectedCurrencyCodes] = useState(['USD', 'EUR', 'GBP', 'JPY', 'AUD', 'CAD']);
   const baseCurrency = 'USD';
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,6 +92,14 @@ const CurrencyConverter = () => {
     });
   };
 
+  const handleDropdownOpen = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownClose = () => {
+    setIsDropdownOpen(false);
+  };
+
   if (loading) {
     return <div className="loading-container"><div className="loading-spinner"></div></div>;
   }
@@ -103,7 +112,7 @@ const CurrencyConverter = () => {
   console.log('可用的货币:', currencies);
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${isDropdownOpen ? 'no-hover' : ''}`}>
       <motion.div {...slideIn} className="converter-container">
         <div className="header-container">
           <motion.h1 {...fadeIn} transition={{ delay: 0.3 }} className="title">
@@ -124,6 +133,8 @@ const CurrencyConverter = () => {
                     onAmountChange={handleAmountChange}
                     onCurrencyChange={(oldCode, newCode) => handleCurrencyChange(index, newCode)}
                     availableCurrencies={currencies}
+                    onDropdownOpen={handleDropdownOpen}
+                    onDropdownClose={handleDropdownClose}
                   />
                 </motion.div>
               );
@@ -131,6 +142,7 @@ const CurrencyConverter = () => {
           </motion.div>
         </AnimatePresence>
       </motion.div>
+      {isDropdownOpen && <div className="overlay"></div>}
     </div>
   );
 };
