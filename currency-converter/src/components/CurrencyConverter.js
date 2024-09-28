@@ -11,7 +11,7 @@ const CurrencyConverter = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [baseAmount, setBaseAmount] = useState(1);
-  const [baseCurrency, setBaseCurrency] = useState('USD');
+  const baseCurrency = 'USD'; // 固定基准货币为 USD
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,20 +35,13 @@ const CurrencyConverter = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const updateRates = async () => {
-      if (baseCurrency) {
-        const newRates = await fetchExchangeRates(baseCurrency);
-        setRates(newRates);
-      }
-    };
-    updateRates();
-  }, [baseCurrency]);
-
   const handleAmountChange = (currency, amount) => {
-    const newBaseAmount = amount === '' ? 1 : parseFloat(amount) / rates[currency];
-    setBaseAmount(newBaseAmount);
-    setBaseCurrency(currency);
+    if (amount === '' || amount === null) {
+      setBaseAmount(null);
+    } else {
+      const newBaseAmount = parseFloat(amount) / rates[currency];
+      setBaseAmount(newBaseAmount);
+    }
   };
 
   if (loading) {
@@ -86,14 +79,13 @@ const CurrencyConverter = () => {
           >
             汇率转换器
           </motion.h1>
-          {/* 删除基准货币组件 */}
         </div>
         <AnimatePresence>
           <motion.div
             {...fadeIn}
             className="currency-list"
           >
-            {currencies.map((currency, index) => (
+            {currencies.map((currency) => (
               <motion.div
                 key={currency.code}
                 {...fadeInUp} // 确保使用正确的属性
