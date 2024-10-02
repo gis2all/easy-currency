@@ -48,42 +48,47 @@ const CurrencyRateItem = ({
     <motion.div
       className="currency-item"
       whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      style={{ position: 'relative', overflow: 'visible' }} // 确保父容器允许溢出
+      whileTap={{ scale: 1.02 }}
+      style={{ display: 'flex' }}
     >
-      <div className="currency-info">
-        <div className="flex items-center space-x-4">
-          <CustomCurrencySelect
-            options={availableCurrencies}
-            value={currency.code}
-            onChange={handleCurrencyChange}
-            onMenuOpen={onDropdownOpen}
-            onMenuClose={onDropdownClose}
-            minimal={true} // 只显示下拉箭头
-          />
-          <img
-            src={currency.flag}
-            alt={`${currency.code} flag`}
-            className="currency-flag"
-          />
-          <div className="currency-details">
-            <span className="currency-code-text">{currency.code}</span>
-            <span className="currency-name-text">{currency.name}</span>
+      <div style={{ width: '40px' }}>
+        <CustomCurrencySelect
+          options={availableCurrencies}
+          value={currency.code}
+          onChange={handleCurrencyChange}
+          onMenuOpen={onDropdownOpen}
+          onMenuClose={onDropdownClose}
+          minimal={true}
+        />
+      </div>
+
+      <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="currency-info">
+          <div className="flex items-center space-x-4">
+            <img
+              src={currency.flag}
+              alt={`${currency.code} flag`}
+              className="currency-flag"
+            />
+            <div className="currency-details">
+              <span className="currency-code-text">{currency.code}</span>
+              <span className="currency-name-text">{currency.name}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="currency-input-container">
-        <motion.input
-          type="text"
-          value={displayAmount}
-          onChange={handleAmountChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className="currency-input"
-          placeholder={rate ? rate.toString() : ''}
-          whileFocus={{ scale: 1.05 }}
-        />
-        <span className="currency-symbol">{currency.symbol}</span>
+        <div className="currency-input-container">
+          <motion.input
+            type="text"
+            value={displayAmount}
+            onChange={handleAmountChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            className="currency-input"
+            placeholder={rate ? rate.toString() : ''}
+            whileFocus={{ scale: 1.05 }}
+          />
+          <span className="currency-symbol">{currency.symbol}</span>
+        </div>
       </div>
     </motion.div>
   );

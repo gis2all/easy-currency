@@ -8,7 +8,8 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
     control: (provided) => ({
       ...provided,
       width: minimal ? '20px' : '200px',  // 在minimal模式下减小宽度
-      padding: 0,
+      padding: '0',
+      height: '20px',
       minHeight: minimal ? '20px' : '40px',  // 在minimal模式下减小高度
       borderRadius: '8px',
       borderColor: 'transparent',  // 使边框透明
@@ -32,16 +33,14 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: 0,
-      margin: 0,  // 移除所有margin
+      padding: '0 0 80px 0',
+      margin: '0 ',  // 移除所有margin
       color: minimal ? '#666' : '#444',  // 调整箭头颜色
-      width: minimal ? '20px' : 'auto',  // 在minimal模式下固定宽度
+      width: minimal ? '40px' : 'auto',  // 在minimal模式下固定宽度
       height: minimal ? '20px' : 'auto',  // 在minimal模式下固定高度
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
-      padding: 0,
-      margin: 0,  // 添加这一行
       background: 'transparent',  // 确保背景透明
       border: 'none',  // 确保没有边框
       width: minimal ? '20px' : 'auto',  // 在minimal模式下固定宽度
@@ -56,7 +55,7 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
       display: 'none'  // 去除分隔符
     }),
     menuPortal: (base) => ({
-      ...base,      
+      ...base,
       zIndex: 9999, // 确保菜单门户具有足够高的层级
     }),
     option: (provided, state) => ({
