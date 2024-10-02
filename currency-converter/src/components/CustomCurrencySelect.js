@@ -48,7 +48,11 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
     }),
     menu: (provided) => ({
       ...provided,
-      width: '300px'  // 设置弹出选择器的固定宽度
+      minWidth: '400px', // 设置最小宽度
+      width: 'auto', // 让宽度自适应内容
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // 添加阴影效果
+      borderRadius: '8px', // 圆角
+      padding: '8px', // 内边距
     }),
     separator: (provided) => ({
       ...provided,
@@ -65,12 +69,31 @@ const CustomCurrencySelect = ({ options, value, onChange, onMenuOpen, onMenuClos
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
+      padding: '12px', // 增加内边距
+      transition: 'background-color 0.2s', // 添加过渡效果
+      '&:hover': {
+        backgroundColor: '#b3d4fc', // 鼠标悬停背景色
+      },
     }),
     menuList: (provided) => ({
       ...provided,
       "div[role='separator']": {
         display: 'none'  // 隐藏分隔符
-      }
+      },
+      padding: 0, // 移除内边距
+      '::-webkit-scrollbar': {
+        width: '6px', // 滚动条宽度
+      },
+      '::-webkit-scrollbar-track': {
+        background: 'transparent', // 滚动条背景色
+      },
+      '::-webkit-scrollbar-thumb': {
+        background: '#888', // 滚动条颜色
+        borderRadius: '3px', // 滚动条圆角
+      },
+      '::-webkit-scrollbar-thumb:hover': {
+        background: '#555', // 鼠标悬停时滚动条颜色
+      },
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
