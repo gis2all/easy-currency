@@ -55,7 +55,7 @@ export const fetchCurrencies = async () => {
               code,
               name: details.name,
               symbol: details.symbol || code,
-              flag: country.flags.svg,
+              flag: country.flags.svg, // 货币标志
               country: country.name.common
             };
           }
@@ -72,7 +72,7 @@ export const fetchCurrencies = async () => {
               code,
               name: details.name,
               symbol: details.symbol || code,
-              flag: country.flags.svg,
+              flag: country.flags.svg, // 货币标志
               country: country.name.common
             };
           }

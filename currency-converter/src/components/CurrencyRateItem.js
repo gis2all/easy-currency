@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { formatAmount } from './currencyUtils';
+import CustomCurrencySelect from './CustomCurrencySelect';
 import '../styles.css';
 
-const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange, onCurrencyChange, availableCurrencies }) => {
+const CurrencyRateItem = ({
+  currency,
+  rate,
+  amount,
+  baseCurrency,
+  onAmountChange,
+  onCurrencyChange,
+  availableCurrencies,
+  onDropdownOpen,
+  onDropdownClose
+}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   if (!currency) {
@@ -27,8 +38,8 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
     }
   };
 
-  const handleCurrencyChange = (e) => {
-    onCurrencyChange(currency.code, e.target.value);
+  const handleCurrencyChange = (newCode) => {
+    onCurrencyChange(currency.code, newCode);
   };
 
   const displayAmount = isFocused ? amount : (amount || '0');
@@ -37,45 +48,47 @@ const CurrencyRateItem = ({ currency, rate, amount, baseCurrency, onAmountChange
     <motion.div
       className="currency-item"
       whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 1.02 }}
+      style={{ display: 'flex' }}
     >
-      <div className="currency-info">
-        <div className="flex items-center space-x-2">
-          <select
-            value={currency.code}
-            onChange={handleCurrencyChange}
-            className="currency-select"
-            aria-label="选择货币"
-          >
-            {availableCurrencies.map((curr) => (
-              <option key={curr.code} value={curr.code}>
-                {curr.code} - {curr.name}
-              </option>
-            ))}
-          </select>
-          <img
-            src={currency.flag}
-            alt={`${currency.code} flag`}
-            className="currency-flag"
-          />
-          <div className="currency-details">
-            <span className="currency-code-text">{currency.code}</span>
-            <span className="currency-name-text">{currency.name}</span>
+      <div style={{ width: '40px' }}>
+        <CustomCurrencySelect
+          options={availableCurrencies}
+          value={currency.code}
+          onChange={handleCurrencyChange}
+          onMenuOpen={onDropdownOpen}
+          onMenuClose={onDropdownClose}
+          minimal={true}
+        />
+      </div>
+
+      <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="currency-info">
+          <div className="flex items-center space-x-4">
+            <img
+              src={currency.flag}
+              alt={`${currency.code} flag`}
+              className="currency-flag"
+            />
+            <div className="currency-details">
+              <span className="currency-code-text">{currency.code}</span>
+              <span className="currency-name-text">{currency.name}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="currency-input-container">
-        <motion.input
-          type="text"
-          value={displayAmount}
-          onChange={handleAmountChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className="currency-input"
-          placeholder={rate ? rate.toString() : ''}
-          whileFocus={{ scale: 1.05 }}
-        />
-        <span className="currency-symbol">{currency.symbol}</span>
+        <div className="currency-input-container">
+          <motion.input
+            type="text"
+            value={displayAmount}
+            onChange={handleAmountChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            className="currency-input"
+            placeholder={rate ? rate.toString() : ''}
+            whileFocus={{ scale: 1.05 }}
+          />
+          <span className="currency-symbol">{currency.symbol}</span>
+        </div>
       </div>
     </motion.div>
   );

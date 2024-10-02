@@ -7,6 +7,7 @@ body {
 }
 
 .app-container {
+  position: relative; /* 确保相对定位 */
   @apply min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8;
 }
 
@@ -194,4 +195,1457 @@ input {
 .selectable-text {
   user-select: text;
   cursor: text;
+}
+
+/* 新增样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 15px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 100%;
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
+}
+
+/* 禁用悬停行为 */
+.no-hover .currency-item {
+  pointer-events: none;
+}
+
+.no-hover .currency-item * {
+  pointer-events: none;
+}
+
+/* 确保选择器的 z-index 最高 */
+.react-select__menu-portal {
+  z-index: 9999 !important;
+}
+
+/* 确保父容器允许下拉菜单溢出显示 */
+.currency-item {
+  overflow: visible;
+}
+
+/* 可选：调整下拉菜单的宽度或其他样式 */
+.currency-option {
+  display: flex;
+  align-items: center;
+}
+
+.currency-flag-option {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.custom-select {
+  width: 200px; /* 根据需要调整宽度 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 9998; /* 确保遮罩层在下拉菜单之下 */
 }
