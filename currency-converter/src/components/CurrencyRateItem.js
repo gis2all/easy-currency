@@ -44,6 +44,9 @@ const CurrencyRateItem = ({
 
   const displayAmount = isFocused ? amount : (amount || '0');
 
+  // 对 availableCurrencies 进行排序
+  const sortedCurrencies = availableCurrencies.sort((a, b) => a.code.localeCompare(b.code));
+
   return (
     <motion.div
       className="currency-item"
@@ -53,7 +56,7 @@ const CurrencyRateItem = ({
     >
       <div style={{ width: '40px' }}>
         <CustomCurrencySelect
-          options={availableCurrencies}
+          options={sortedCurrencies} // 使用排序后的货币列表
           value={currency.code}
           onChange={handleCurrencyChange}
           onMenuOpen={onDropdownOpen}
