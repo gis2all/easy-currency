@@ -7,12 +7,12 @@ body {
 }
 
 .app-container {
-  position: relative; /* 确保相对定位 */
-  @apply min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8;
+  position: relative;
+  @apply min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center;
 }
 
 .converter-container {
-  @apply max-w-2xl mx-auto bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden;
+  @apply w-full max-w-2xl bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden;
 }
 
 .header-container {
