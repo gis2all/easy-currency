@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { formatAmount } from './currencyUtils';
 import CustomCurrencySelect from './CustomCurrencySelect';
@@ -8,7 +8,6 @@ const CurrencyRateItem = ({
   currency,
   rate,
   amount,
-  baseCurrency,
   onAmountChange,
   onCurrencyChange,
   availableCurrencies,
@@ -17,31 +16,41 @@ const CurrencyRateItem = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
+  // 使用 useCallback 优化性能
+  const handleAmountChange = useCallback((e) => {
+    if (!currency) return;
+    const newAmount = e.target.value;
+    // 验证输入是否为有效的数字格式（最多6位小数）
+    if (/^[0-9]*\.?[0-9]{0,6}$/.test(newAmount) || newAmount === '') {
+      onAmountChange(currency.code, newAmount);
+    }
+  }, [currency, onAmountChange]);
+
+  const handleFocus = useCallback(() => setIsFocused(true), []);
+  const handleBlur = useCallback(() => {
+    if (!currency) return;
+    setIsFocused(false);
+    // 当失去焦点时，如果金额为空，设置为'0'；否则格式化金额
+    onAmountChange(currency.code, amount === '' ? '0' : formatAmount(amount));
+  }, [amount, currency, onAmountChange]);
+
+  const handleCurrencyChange = useCallback((newCode) => {
+    if (!currency) return;
+    onCurrencyChange(currency.code, newCode);
+  }, [currency, onCurrencyChange]);
+
+  // 使用 useMemo 优化性能，避免不必要的排序
+  const sortedCurrencies = useMemo(() => 
+    [...availableCurrencies].sort((a, b) => a.code.localeCompare(b.code)),
+    [availableCurrencies]
+  );
+
+  // 如果货币数据不可用，显示占位符
   if (!currency) {
     return <div className="currency-item-placeholder">货币数据不可用</div>;
   }
 
-  const handleAmountChange = (e) => {
-    const newAmount = e.target.value;
-    if (/^[0-9]*\.?[0-9]{0,6}$/.test(newAmount) || newAmount === '') {
-      onAmountChange(currency.code, newAmount);
-    }
-  };
-
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => {
-    setIsFocused(false);
-    if (amount === '') {
-      onAmountChange(currency.code, '0');
-    } else {
-      onAmountChange(currency.code, formatAmount(amount));
-    }
-  };
-
-  const handleCurrencyChange = (newCode) => {
-    onCurrencyChange(currency.code, newCode);
-  };
-
+  // 根据焦点状态决定显示的金额
   const displayAmount = isFocused ? amount : (amount || '0');
 
   return (
@@ -53,7 +62,7 @@ const CurrencyRateItem = ({
     >
       <div style={{ width: '40px' }}>
         <CustomCurrencySelect
-          options={availableCurrencies}
+          options={sortedCurrencies}
           value={currency.code}
           onChange={handleCurrencyChange}
           onMenuOpen={onDropdownOpen}
@@ -94,4 +103,4 @@ const CurrencyRateItem = ({
   );
 };
 
-export default CurrencyRateItem;
+export default React.memo(CurrencyRateItem);
