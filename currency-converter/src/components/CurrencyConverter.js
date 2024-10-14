@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CurrencyRateItem from './CurrencyRateItem';
 import { getCombinedCurrencyData, fetchExchangeRates, formatAmount } from './currencyUtils';
@@ -15,37 +15,45 @@ const CurrencyConverter = () => {
   const baseCurrency = 'USD';
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currencyData = await getCombinedCurrencyData();
-        console.log('获取到的货币数据:', currencyData);
-        if (currencyData.length === 0) {
-          throw new Error('无法获取货币数据');
-        }
-        setCurrencies(currencyData);
+  // 使用 useCallback 优化性能
+  const fetchData = useCallback(async () => {
+    try {
+      const [currencyData, usdRates] = await Promise.all([
+        getCombinedCurrencyData(),
+        fetchExchangeRates('USD')
+      ]);
 
-        const usdRates = await fetchExchangeRates('USD');
-        console.log('获取到的汇率数据:', usdRates);
-        setRates(usdRates);
-
-        const initialAmounts = selectedCurrencyCodes.reduce((acc, code) => {
-          acc[code] = code === 'USD' ? '1' : formatAmount(usdRates[code]);
-          return acc;
-        }, {});
-        setAmounts(initialAmounts);
-
-        setLoading(false);
-      } catch (error) {
-        console.error('获取数据失败:', error);
-        setError(error.message);
-        setLoading(false);
+      if (currencyData.length === 0) {
+        throw new Error('无法获取货币数据');
       }
-    };
-    fetchData();
-  }, []);
 
-  const handleCurrencyChange = (index, newCurrencyCode) => {
+      console.log('获取到的货币数据:', currencyData);
+      console.log('获取到的汇率数据:', usdRates);
+
+      setCurrencies(currencyData);
+      setRates(usdRates);
+
+      // 初始化金额
+      const initialAmounts = selectedCurrencyCodes.reduce((acc, code) => {
+        acc[code] = code === 'USD' ? '1' : formatAmount(usdRates[code]);
+        return acc;
+      }, {});
+      setAmounts(initialAmounts);
+
+      setLoading(false);
+    } catch (error) {
+      console.error('获取数据失败:', error);
+      setError(error.message);
+      setLoading(false);
+    }
+  }, [selectedCurrencyCodes]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // 优化货币变更处理函数
+  const handleCurrencyChange = useCallback((index, newCurrencyCode) => {
     setSelectedCurrencyCodes(prev => {
       const newCodes = [...prev];
       newCodes[index] = newCurrencyCode;
@@ -53,44 +61,36 @@ const CurrencyConverter = () => {
     });
 
     setAmounts(prev => {
-      const updatedAmounts = { ...prev };
-      // 将新选择的货币金额设置为 1
-      updatedAmounts[newCurrencyCode] = '1';
-
-      // 根据新的基准货币（金额为1）重新计算其他货币的金额
+      const updatedAmounts = { ...prev, [newCurrencyCode]: '1' };
       selectedCurrencyCodes.forEach(code => {
         if (code !== newCurrencyCode) {
-          const convertedAmount = rates[code] / rates[newCurrencyCode];
-          updatedAmounts[code] = formatAmount(convertedAmount);
+          updatedAmounts[code] = formatAmount(rates[code] / rates[newCurrencyCode]);
         }
       });
-
       return updatedAmounts;
     });
-  };
+  }, [rates, selectedCurrencyCodes]);
 
-  const handleAmountChange = (currencyCode, amount) => {
+  // 优化金额变更处理函数
+  const handleAmountChange = useCallback((currencyCode, amount) => {
     setAmounts(prev => {
       const newAmounts = { ...prev, [currencyCode]: amount };
       
       if (amount === '') {
-        selectedCurrencyCodes.forEach(code => {
-          newAmounts[code] = '';
-        });
-      } else {
-        const usdAmount = currencyCode === 'USD' ? parseFloat(amount) : parseFloat(amount) / rates[currencyCode];
-        
-        selectedCurrencyCodes.forEach(code => {
-          if (code !== currencyCode) {
-            const convertedAmount = code === 'USD' ? usdAmount : usdAmount * rates[code];
-            newAmounts[code] = formatAmount(convertedAmount);
-          }
-        });
+        return Object.fromEntries(selectedCurrencyCodes.map(code => [code, '']));
       }
+
+      const usdAmount = currencyCode === 'USD' ? parseFloat(amount) : parseFloat(amount) / rates[currencyCode];
+      
+      selectedCurrencyCodes.forEach(code => {
+        if (code !== currencyCode) {
+          newAmounts[code] = formatAmount(code === 'USD' ? usdAmount : usdAmount * rates[code]);
+        }
+      });
       
       return newAmounts;
     });
-  };
+  }, [rates, selectedCurrencyCodes]);
 
   const handleDropdownOpen = () => {
     setIsDropdownOpen(true);
@@ -105,7 +105,14 @@ const CurrencyConverter = () => {
   }
 
   if (error) {
-    return <div className="error-container"><div className="error-message"><h2 className="error-title">错误</h2><p className="error-text">{error}</p></div></div>;
+    return (
+      <div className="error-container">
+        <div className="error-message">
+          <h2 className="error-title">错误</h2>
+          <p className="error-text">{error}</p>
+        </div>
+      </div>
+    );
   }
 
   console.log('当前选择的货币代码:', selectedCurrencyCodes);
